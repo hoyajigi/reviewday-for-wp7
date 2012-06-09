@@ -1,0 +1,17 @@
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\ApplicationIcon.png
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\Background.png
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\reviewday.dll
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\reviewday.pdb
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\AppManifest.xaml
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\reviewday.xap
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\Microsoft.Phone.Controls.dll
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\Microsoft.Phone.Controls.xml
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\ResolveAssemblyReference.cache
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\App.g.i.cs
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\MainPage.g.i.cs
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\reviewday.g.resources
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\reviewday.dll
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\reviewday.pdb
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\XapCacheFile.xml
+c:\users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\Bin\Debug\Newtonsoft.Json.dll
+C:\Users\hoyajigi\documents\visual studio 2010\Projects\reviewday\reviewday\obj\Debug\Detail.g.i.cs
