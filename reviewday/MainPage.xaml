@@ -25,13 +25,14 @@
                 <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" Tap="FirstListBox_Tap" SelectionChanged="FirstListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" >
-                                <Grid>
-                                <Image Source="{Binding Img}" Width="150" Margin="-300,0,0,0" />
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Height="110" Margin="150,-120,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}" Grid.Column="1" />
-                                <TextBlock Text="{Binding Contents}" TextWrapping="Wrap" Margin="152,110,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                               <Grid Margin="0,10,0,0">
+                                   <Image Grid.Column="1" Width="150" Source="{Binding Img}" Margin="0,0,0,0" HorizontalAlignment="Left" />
+                                 <StackPanel Grid.Column="2" Margin="152,0,0,0" VerticalAlignment="Top">
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Title}" TextWrapping="Wrap" Margin="0,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                                 <TextBlock VerticalAlignment="Top" Text="{Binding Contents}" TextWrapping="Wrap" Margin="5,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
                                 </Grid>
-                            </StackPanel>
+                            
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -40,14 +41,17 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="책"> 
                 <!--Triple line list no text wrapping-->
-                    <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                    <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" Tap="SecondListBox_Tap" SelectionChanged="SecondListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,17">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <Grid Margin="0,10,0,0">
+                                <Image Grid.Column="1" Width="150" Source="{Binding Img}" Margin="0,0,0,0" HorizontalAlignment="Left" />
+                                <StackPanel Grid.Column="2" Margin="152,0,0,0" VerticalAlignment="Top">
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Title}" TextWrapping="Wrap" Margin="0,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Contents}" TextWrapping="Wrap" Margin="5,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
-                            </DataTemplate>
+                            </Grid>
+                        </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
             </controls:PivotItem>
@@ -55,13 +59,16 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="음반">
                 <!--Triple line list no text wrapping-->
-                <ListBox x:Name="ThirdListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                <ListBox x:Name="ThirdListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="ThirdListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
+                            <Grid Margin="0,10,0,0">
+                                <Image Grid.Column="1" Width="150" Source="{Binding Img}" Margin="0,0,0,0" HorizontalAlignment="Left" />
+                                <StackPanel Grid.Column="2" Margin="152,0,0,0" VerticalAlignment="Top">
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Title}" TextWrapping="Wrap" Margin="0,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Contents}" TextWrapping="Wrap" Margin="5,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

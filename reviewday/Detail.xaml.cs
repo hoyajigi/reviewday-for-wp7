@@ -16,6 +16,7 @@ using Microsoft.Phone.Controls;
 
 //using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Windows.Media.Imaging; 
 
 namespace reviewday
 {
@@ -30,6 +31,10 @@ namespace reviewday
             base.OnNavigatedTo(e);
             string id = NavigationContext.QueryString["id"];
             string domain = NavigationContext.QueryString["domain"];
+            string title = NavigationContext.QueryString["title"];
+            string imgurl = NavigationContext.QueryString["imgurl"];
+            PageTitle.Text = title;
+            image1.Source = new BitmapImage(new Uri(imgurl));
             WebClient WC = new WebClient();
             WC.DownloadStringAsync(new Uri("http://me2day.net/api/get_posts_by_content.xml?domain="+domain+"&identifier=" + id+"&from_me2live=true&page=1&count=10&akey=3345257cb3f6681909994ea2c0566e80&asig=MTMzOTE2NDY1MiQkYnlidWFtLnEkJDYzZTVlM2EwOWUyYmI5M2Q0OGU4ZjlmNzA4ZjUzYjMz&locale=ko-KR"));
 
@@ -54,9 +59,9 @@ namespace reviewday
             var rssList = from rssTree in rssParser.Descendants("post")
                           select new Post
                           {
-                              name = rssTree.Element("callbackUrl").Value,
+                              name = rssTree.Element("author").Element("nickname").Value,
 
-                              body = rssTree.Element("body").Value
+                              body = rssTree.Element("textBody").Value
 //                              Img = new Uri(rssTree.Element("imgpath").Value, UriKind.Absolute),
 //                              Url = rssTree.Element("bookid").Value
 
@@ -64,7 +69,7 @@ namespace reviewday
 
 
             foreach(Post rss in rssList){
-                         textBlock1.Text += rss.body;
+                         textBlock1.Text += rss.name+"님이 말하기를 : "+rss.body+"\n\n";
 
             }
         }

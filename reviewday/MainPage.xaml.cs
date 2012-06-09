@@ -24,20 +24,9 @@ namespace reviewday
 
     public partial class MainPage : PhoneApplicationPage
     {
-        List<int> book=new List<int>();
-        List<int> movie=new List<int>();
-        List<int> music=new List<int>();
-
-
-        public class Book
-        {
-            public string Title { get; set; }
-            public string Contents { get; set; }
-            public Uri Img { get; set; }
-            public string Url { get; set; }
-        }
-
         List<Book> books = new List<Book>();
+        List<Movie> movies = new List<Movie>();
+        public List<Music> musics = new List<Music>();
 
         // Constructor
         public MainPage()
@@ -73,11 +62,17 @@ namespace reviewday
                 foreach (var obj in dict["contents"])
                 {
                     if(obj["domain"].ToString()=="music_album"){
-                        music.Add(Convert.ToInt32(obj["identifier"].ToString()));
+                        //music.Add(Convert.ToInt32(obj["identifier"].ToString()));
+                        WebClient WC = new WebClient();
+                        WC.DownloadStringAsync(new Uri("http://me2day.net/api/get_content.json?domain=music_album&identifier=" + Convert.ToInt32(obj["identifier"].ToString()) + "&akey=3345257cb3f6681909994ea2c0566e80&asig=MTMzOTE2NDY1MiQkYnlidWFtLnEkJDYzZTVlM2EwOWUyYmI5M2Q0OGU4ZjlmNzA4ZjUzYjMz&locale=ko-KR"));
+                        WC.DownloadStringCompleted += new System.Net.DownloadStringCompletedEventHandler(musicCompleted);
                     }
                     if (obj["domain"].ToString() == "movie")
                     {
-                        movie.Add(Convert.ToInt32(obj["identifier"].ToString()));
+                        //movie.Add(Convert.ToInt32(obj["identifier"].ToString()));
+                        WebClient WC = new WebClient();
+                        WC.DownloadStringAsync(new Uri("http://me2day.net/api/get_content.json?domain=movie&identifier=" + Convert.ToInt32(obj["identifier"].ToString()) + "&akey=3345257cb3f6681909994ea2c0566e80&asig=MTMzOTE2NDY1MiQkYnlidWFtLnEkJDYzZTVlM2EwOWUyYmI5M2Q0OGU4ZjlmNzA4ZjUzYjMz&locale=ko-KR"));
+                        WC.DownloadStringCompleted += new System.Net.DownloadStringCompletedEventHandler(movieCompleted);
                     }
                     if (obj["domain"].ToString() == "book")
                     {
@@ -94,8 +89,6 @@ namespace reviewday
                 MessageBox.Show("No Internet Connection");
                 return;
             }
-     //       while (books.Count() < 10) ;
-
         }
 
         void bookCompleted(object sender, System.Net.DownloadStringCompletedEventArgs e)
@@ -111,7 +104,7 @@ namespace reviewday
                     books.Add(abook);
                     if (books.Count() == 10)
                     {
-                        FirstListBox.ItemsSource = books;
+                        SecondListBox.ItemsSource = books;
                     }
             }
             catch (Exception ex)
@@ -125,15 +118,37 @@ namespace reviewday
             try
             {
                 var dict = (JObject)JsonConvert.DeserializeObject(e.Result);
-                Book abook = new Book();
+                Movie abook = new Movie();
                 abook.Title = dict["detail"]["title"].ToString();
-                abook.Contents = dict["detail"]["author"].ToString();
+                abook.Contents = dict["detail"]["cast"].ToString();
                 abook.Img = new Uri(dict["detail"]["image_url"].ToString());
                 abook.Url = dict["identifier"].ToString();
-                books.Add(abook);
+                movies.Add(abook);
+                if (movies.Count() == 10)
+                {
+                    FirstListBox.ItemsSource = movies;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Internet Connection");
+                return;
+            }
+        }
+        void musicCompleted(object sender, System.Net.DownloadStringCompletedEventArgs e)
+        {
+            try
+            {
+                var dict = (JObject)JsonConvert.DeserializeObject(e.Result);
+                Music abook = new Music();
+                abook.Title = dict["detail"]["title"].ToString();
+                abook.Contents = dict["detail"]["artist"].ToString();
+                abook.Img = new Uri(dict["detail"]["image_url"].ToString());
+                abook.Url = dict["identifier"].ToString();
+                musics.Add(abook);
                 if (books.Count() == 10)
                 {
-                    FirstListBox.ItemsSource = books;
+                    ThirdListBox.ItemsSource = musics;
                 }
             }
             catch (Exception ex)
@@ -150,8 +165,49 @@ namespace reviewday
 
         private void FirstListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (FirstListBox.SelectedIndex!=-1&&FirstListBox.ItemsSource==books)
-            NavigationService.Navigate(new Uri("/Detail.xaml?id=" + books[FirstListBox.SelectedIndex].Url+"&domain=book", UriKind.Relative));
+            if (FirstListBox.SelectedIndex!=-1&&FirstListBox.ItemsSource==movies)
+                NavigationService.Navigate(new Uri("/Detail.xaml?id=" + movies[FirstListBox.SelectedIndex].Url + "&domain=movie&title=" + movies[FirstListBox.SelectedIndex].Title + "&imgurl=" + movies[FirstListBox.SelectedIndex].Img.ToString(), UriKind.Relative));
+        }
+
+        private void SecondListBox_Tap(object sender, GestureEventArgs e)
+        {
+
+        }
+
+        private void SecondListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Detail.xaml?id=" + books[SecondListBox.SelectedIndex].Url + "&domain=book&title=" + books[SecondListBox.SelectedIndex].Title + "&imgurl=" + books[SecondListBox.SelectedIndex].Img.ToString(), UriKind.Relative));
+        }
+
+        private void ThirdListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Detail.xaml?id=" + musics[ThirdListBox.SelectedIndex].Url + "&domain=music_album&title=" + musics[ThirdListBox.SelectedIndex].Title+"&imgurl="+musics[ThirdListBox.SelectedIndex].Img.ToString(), UriKind.Relative));
         }
     }
+    public class Book
+    {
+        public string Title { get; set; }
+        public string Contents { get; set; }
+        public Uri Img { get; set; }
+        public string Url { get; set; }
+    }
+
+
+    public class Movie
+    {
+        public string Title { get; set; }
+        public string Contents { get; set; }
+        public Uri Img { get; set; }
+        public string Url { get; set; }
+    }
+
+
+    public class Music
+    {
+        public string Title { get; set; }
+        public string Contents { get; set; }
+        public Uri Img { get; set; }
+        public string Url { get; set; }
+    }
+
 }
